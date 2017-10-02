@@ -1,0 +1,6 @@
+framework module Connect {
+  umbrella header "Connect.h"
+
+  export *
+  module * { export * }
+}

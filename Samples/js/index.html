@@ -1,0 +1,1044 @@
+
+<!DOCTYPE html> 
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+
+    <script src="js/jquery-1.11.3.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+
+    <style type="text/css">
+        .form-control{
+            max-width: 300px;
+        }
+        label{
+            font-weight: normal;
+        }
+        .top-0{
+            margin-top: 0px;
+        }
+        .top-5{
+            margin-top: 5px;
+        }
+        .top-10{
+            margin-top: 10px;
+        }
+        .bottom-0{
+            margin-bottom: 0px;
+        }
+        hr{
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+    </style>
+
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+
+            <div class="pull-left col-md-3">
+
+                <div class="panel panel-primary">
+                    <div class="panel-heading">App</div>
+                    <div class="panel-body">
+                        <label>
+                            Key :
+                        </label>
+                        <input type="text" id="appKey" class="form-control" value="" />
+                        <label class="top-10">
+                            Secret :
+                        </label>
+                        <input type="text" id="appSecret" class="form-control" value="" />
+                    </div>
+                </div>
+
+                <div class="panel panel-primary top-10">
+                    <div class="panel-heading">
+                        Local media
+                    </div>
+                    <div class="panel-body">
+                        <div class="checkbox top-0">
+                            <label>
+                                <input type="checkbox" id="audio" value="1" /> Audio
+                            </label>
+                        </div>
+                        <!--
+                        <div class="checkbox bottom-0">
+                            <label>
+                                <input type="checkbox" id="audioSourceId" value="1" /> Audio source
+                            </label>
+                        </div>
+                        <select id="audios" class="form-control"></select>
+                        -->
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" id="video" value="1" /> Video
+                            </label>
+                        </div>
+                        <!--
+                        <div class="checkbox bottom-0">
+                            <label>
+                                <input type="checkbox" id="videoSourceId" value="1" /> Video source
+                            </label>
+                        </div>
+                        <select id="videos" class="form-control"></select>
+                        -->
+                        <label class="/*top-10*/ bottom-0">
+                            Resolution
+                        </label>
+                        <select id="resolutions" class="form-control">
+                            <option value="0">Default</option>
+                            <option value="1">QVGA</option>
+                            <option value="2">VGA</option>
+                            <option value="3">HD</option>
+                            <option value="4">Full HD</option>
+                        </select>
+                        <input class="btn btn-success actionButton top-10" type="button" value="Start" onclick="startLocalMedia();" />
+                        <input class="btn btn-danger actionButton top-10" type="button" value="Stop" onclick="stopLocalMedia();" />
+                    </div>
+                </div>
+
+                <div class="panel panel-primary">
+                    <div class="panel-heading">Snapshot</div>
+                    <div class="panel-body">
+                        <input class="btn btn-success" type="button" value="Snapshot" onclick="snapshot();" />
+                        <input class="btn btn-danger" type="button" value="Clear" onclick="clearSnapshot();" />
+                    </div>
+                </div>
+
+                <div class="panel panel-primary">
+                    <div class="panel-heading">Server connection</div>
+                    <div class="panel-body">
+                        <label>
+                            Id :
+                        </label>
+                        <input type="text" id="clientId" class="form-control" placeholder="custom id..." />
+                        <label class="top-10">
+                            Name :
+                        </label>
+                        <input type="text" id="clientName" class="form-control" placeholder="name surname..." />
+                        <input class="btn btn-success actionButton top-10" type="button" value="Connect to signaling server" onclick="connect();" />
+                        <br/>
+                        <input class="btn btn-danger actionButton top-5" type="button" value="Disconnect from signaling server" onclick="disconnect();" />
+                    </div>
+                </div>
+
+                <div class="panel panel-primary">
+                    <div class="panel-heading">Room</div>
+                    <div class="panel-body">
+                        <input type="text" id="roomName" class="form-control" placeholder="name..." />
+                        <input class="btn btn-success actionButton top-10" type="button" value="Join to room" onclick="join();" />
+                        <input class="btn btn-danger actionButton top-10" type="button" value="Leave from room" onclick="leave();" />
+                    </div>
+                </div>
+
+                <div class="panel panel-primary">
+                    <div class="panel-heading">Clients</div>
+                    <div class="panel-body">
+
+                        <select id="clients" class="form-control" ></select>
+
+                        <div class="panel panel-info top-10 bottom-0">
+                            <div class="panel-heading">Call</div>
+                            <div class="panel-body">
+                                <div>
+                                    <div class="pull-left">
+                                        <div class="checkbox top-0 bottom-0">
+                                            <label>
+                                                <input type="checkbox" id="callAudio" value="1" /> Audio
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="pull-left" style="margin-left: 10px;">
+                                        <div class="checkbox top-0 bottom-0">
+                                            <label>
+                                                <input type="checkbox" id="callVideo" value="1" /> Video
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <input type="text" id="callConfirmationMessage" class="form-control" placeholder="confirmation message..." />
+                                <input class="btn btn-success actionButton top-10" type="button" value="Call" onclick="call();" />
+                                <input class="btn btn-danger actionButton top-10" type="button" value="Hang up" onclick="hangup();" />
+                            </div>
+                        </div>
+                        <div class="panel panel-info top-10 bottom-0">
+                            <div class="panel-heading">Data channel</div>
+                            <div class="panel-body">
+                                <input type="text" id="dataChannelName" class="form-control" placeholder="name..." />
+                                <input type="text" id="dataChannelConfirmationMessage" class="form-control top-5" placeholder="confirmation message..." />
+                                <input class="btn btn-success actionButton top-5" type="button" value="Open" onclick="openDataChannel();" />
+                                <br/>
+                                <label class="top-10">
+                                    Data channels :
+                                </label>
+                                <select id="dataChannels" class="form-control" >
+                                </select>
+                                <input class="btn btn-danger actionButton top-5" type="button" value="Close" onclick="closeDataChannel();" />
+                            </div>
+                        </div>
+                        <div class="panel panel-info top-10 bottom-0">
+                            <div class="panel-heading">Send message</div>
+                            <div class="panel-body">
+                                <label class="top-0">
+                                    Message :
+                                </label>
+                                <input type="text" id="dataChannelMessage" class="form-control" placeholder="message..." />
+                                <input class="btn btn-success actionButton top-5" type="button" value="Send" onclick="sendMessage();" />
+                                <br/>
+                                <label class="top-10">
+                                    Last received message :
+                                </label>
+                                <br/>
+                                <label id="receivedDataChannelMessage">
+                                </label>
+
+                            </div>
+                        </div>
+                        <!--
+                        <div class="panel panel-info top-10 bottom-0">
+                            <div class="panel-heading">File transfer</div>
+                            <div class="panel-body">
+                                <form id="fileTransferForm">
+                                    <input type="file" id="fileTransferInput" name="files" />
+                                </form>
+                                <input type="text" id="fileTransferConfirmationMessage" class="form-control top-5" placeholder="confirmation message" />
+                                <input class="btn btn-success actionButton top-5" type="button" value="Send" onclick="sendFile();" />
+                                <br/>
+                                <label class="top-10">
+                                    Received files :
+                                </label>
+                                <br/>
+                                <div id="fileTransferReceived">
+
+                                </div>
+                            </div>
+                        </div>
+                        -->
+                    </div>
+                </div>
+
+            </div>
+             <div class="pull-left col-md-9">
+                <div>
+                    <video id="localVideo" width="100%" autoplay></video>
+                </div>
+                <div id="remoteVideos">
+
+                </div>
+                <canvas id="snapshotCanvas" ></canvas>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript" src="js/luteg.connector.js"></script>
+
+    <script type="text/javascript">
+
+        // create luteg connector object
+        var lutegConnector = new luteg.connector({
+            debug:true
+        });
+
+        // initialize luteg connector object
+        initializeLutegConnector();
+
+        /**
+        // get audio sources
+        lutegConnector.getAudioSources(
+            function(sources){
+                var audiosSelect = document.querySelector('#audios');
+                for (var i = 0; i < sources.length; i++){
+                    var sourceItem = sources[i];
+                    var audioOption = createOption(sourceItem.id, sourceItem.label || 'microphone ' + (audiosSelect.length + 1)) ;
+                    audiosSelect.appendChild(audioOption);
+                }
+            },
+            function(err){
+                if (err === 'NOT_SUPPORTED'){
+                    alert('Audio sources list is not supported for this browser');
+                }
+                else{
+                    alert('getAudioSources - err : ' + err);
+                }
+            }
+        );
+        */
+
+        /**
+        // get video sources
+        lutegConnector.getVideoSources(
+            function(sources){
+                var videosSelect = document.querySelector('#videos');
+                for (var i = 0; i < sources.length; i++){
+                    var sourceItem = sources[i];
+                    var videoOption = createOption(sourceItem.id, sourceItem.label || 'camera ' + (videosSelect.length + 1)) ;
+                    videosSelect.appendChild(videoOption);
+                }
+            },
+            function(err){
+                if (err === 'NOT_SUPPORTED'){
+                    alert('Video sources list is not supported for this browser');
+                }
+                else{
+                    alert('getVideoSources - err : ' + err);
+                }
+            }
+        );
+        */
+
+        // starts the local media
+        function startLocalMedia(){
+            if (lutegConnector.hasLocalMedia()) {
+                alert("You have already local media");
+            }
+            else{
+                var localMediaOptions = {};
+                if (document.querySelector('#audio').checked){
+                    localMediaOptions.audio = true;
+                }
+                /*
+                if (document.querySelector('#audioSourceId').checked){
+                    var audioSourceId = document.querySelector('#audios').value;
+                    if (audioSourceId.length > 0){
+                        localMediaOptions.audioSourceId = audioSourceId;
+                    }
+                }
+                */
+                if (document.querySelector('#video').checked){
+                    localMediaOptions.video = true;
+                }
+                /*
+                if (document.querySelector('#videoSourceId').checked){
+                    var videoSourceId = document.querySelector('#videos').value;
+                    if (videoSourceId.length > 0){
+                        localMediaOptions.videoSourceId = videoSourceId;
+                    }
+                }
+                */
+                var resolution = document.querySelector('#resolutions').value;
+                if (resolution.length > 0){
+                    localMediaOptions.videoResolution = resolution;
+                }
+                lutegConnector.startLocalMedia(
+                        localMediaOptions,
+                        function(stream){
+                            var localVideoElement = document.querySelector('#localVideo');
+                            // cancel echo
+                            localVideoElement.muted = "muted"
+                            lutegConnector.attachMediaStream(localVideoElement, stream);
+                        },
+                        function(err){
+                            if (err === 'AUDIO_OR_VIDEO_OPTION_MUST_BE_SET'){
+                                alert("At least audio or video option must be set.");
+                            }
+                            else if (err === 'ALREADY_STARTED'){
+                                alert("Local media is already started.");
+                            }
+                            else{
+                                alert("localMediaStart - error : " + err);
+                            }
+                        }
+                );
+            }
+        };
+
+        // stops the local media
+        function stopLocalMedia(){
+            if (!lutegConnector.hasLocalMedia()) {
+                alert("You don't have local media");
+            }
+            else{
+                lutegConnector.stopLocalMedia(
+                    function(){
+                        var localVideoElement = document.querySelector('#localVideo');
+                        localVideoElement.src = '';
+                    },
+                    function(err){
+                        if (err === 'NO_LOCAL_MEDIA'){
+                            alert("You don't have local media");
+                        }
+                        else{
+                            alert("localMediaStop - error : " + err);
+                        }
+                    }
+                );
+            }
+        };
+
+        // snapshot from local video
+        function snapshot(){
+            lutegConnector.snapshot(
+                document.querySelector('#localVideo'),
+                document.querySelector('#snapshotCanvas')
+            );
+        };
+
+        // clear snapshot
+        function clearSnapshot(){
+            var canvasElement = document.querySelector('#snapshotCanvas');
+            canvasElement.width = 0;
+            canvasElement.height = 0;
+            canvasElement.getContext('2d').clearRect(0, 0, canvasElement.width, canvasElement.height);
+        };
+
+        // connect to server
+        function connect(){
+            if (lutegConnector.isConnected()) {
+                alert("You are already connected");
+            }
+            else{
+                lutegConnector.options({
+                    appKey: document.querySelector('#appKey').value,
+                    appSecret: document.querySelector('#appSecret').value
+                });
+                var clientId = document.querySelector('#clientId').value;
+                var clientName = document.querySelector('#clientName').value;
+                var customProperties = {};
+                if (clientId.length > 0){
+                    customProperties['id'] = clientId;
+                }
+                if (clientName.length > 0){
+                    customProperties['name'] = clientName;
+                }
+                lutegConnector.connect(customProperties);
+            }
+        };
+
+        // disconnect from server
+        function disconnect(){
+            if (!lutegConnector.isConnected()){
+                alert("You are already disconnected");
+            }
+            else{
+                lutegConnector.disconnect();
+            }
+        };
+
+        // join to room
+        function join(){
+            var roomName = document.querySelector('#roomName').value;
+            if (roomName.length == 0){
+                alert("Please enter the room name.")
+            }
+            else{
+                lutegConnector.join(roomName);
+            }
+        };
+
+        // leave from room
+        function leave(){
+            lutegConnector.leave();
+        };
+
+        // call to client
+        function call(){
+            var clientId = document.querySelector('#clients').value;
+            if (clientId.length == 0){
+                alert("Please select the client.")
+            }
+            else{
+                var requestAudio = false;
+                if (document.querySelector('#callAudio').checked){
+                    requestAudio = true;
+                }
+                var requestVideo = false;
+                if (document.querySelector('#callVideo').checked){
+                    requestVideo = true;
+                }
+                var requestConfirmationMessage = document.querySelector('#callConfirmationMessage').value;
+                lutegConnector.clients[clientId].call(requestAudio, requestVideo, requestConfirmationMessage);
+            }
+        };
+
+        // hangup from client
+        function hangup(){
+            var clientId = document.querySelector('#clients').value;
+            if (clientId.length == 0){
+                alert("Please select the client.")
+            }
+            else {
+                lutegConnector.clients[clientId].hangup(
+                    // success function
+                    function () {
+                    },
+                    // error function
+                    function (err) {
+                        if (err === 'DISCONNECTED') {
+                            alert("You are disconnected from the server. Please connect to server at first");
+                        }
+                        else if (err === 'CALL_NOT_EXISTS') {
+                            alert("You don't have any call with this client");
+                        }
+                        else {
+                            alert("hangup - error : " + err);
+                        }
+                    }
+                );
+            }
+        };
+
+        // open data channel between client
+        function openDataChannel(){
+            var clientId = document.querySelector('#clients').value;
+            if (clientId.length == 0){
+                alert("Please select the client.")
+            }
+            else {
+                var channelName = document.querySelector('#dataChannelName').value;
+                if (channelName.length == 0){
+                    alert("Please enter the channel name.")
+                }
+                else{
+                    var confirmationMessage = document.querySelector('#dataChannelConfirmationMessage').value;
+                    lutegConnector.clients[clientId].openDataChannel(channelName, confirmationMessage);
+                }
+            }
+        };
+
+        // close data channel between client
+        function closeDataChannel(){
+            var clientId = document.querySelector('#clients').value;
+            if (clientId.length == 0){
+                alert("Please select the client.")
+            }
+            else {
+                var channelName = document.querySelector('#dataChannels').value;
+                if (channelName.length == 0){
+                    alert("Please select the channel.")
+                }
+                else{
+                    lutegConnector.clients[clientId].closeDataChannel(channelName);
+                }
+            }
+        };
+
+        // send message to client
+        function sendMessage(){
+            var clientId = document.querySelector('#clients').value;
+            if (clientId.length == 0){
+                alert("Please select the client.")
+            }
+            else {
+                var channelName = document.querySelector('#dataChannels').value;
+                if (channelName.length == 0){
+                    alert("Please select the channel.")
+                }
+                else{
+                    var channelMessage = document.querySelector('#dataChannelMessage').value;
+                    if (channelMessage.length == 0){
+                        alert("Please enter the message.")
+                    }
+                    else{
+                        lutegConnector.clients[clientId].sendMessage(channelName, channelMessage);
+                    }
+                }
+            }
+        };
+
+        // send file to client
+        function sendFile(){
+            var clientId = document.querySelector('#clients').value;
+            if (clientId.length == 0){
+                alert("Please select the client.")
+            }
+            else {
+                var fileTransferInput = document.querySelector('#fileTransferInput');
+                if (fileTransferInput.files.length == 0){
+                    alert("Please select the file.")
+                }
+                else{
+                    var confirmationMessage = document.querySelector('#fileTransferConfirmationMessage').value;
+                    lutegConnector.clients[clientId].sendFile(fileTransferInput.files[0], confirmationMessage);
+                }
+            }
+        }
+
+        // initialize luteg connector object
+        function initializeLutegConnector(){
+            // when connected to the server
+            lutegConnector.on('connected', function(err, id){
+                if (err){
+                    var errorMessage = "connect - error : " + err;
+                    alert(errorMessage);
+                }
+            });
+
+            // when disconnected from the server
+            lutegConnector.on('disconnected', function(err, id){
+                if (err){
+                    var errorMessage = "disconnect - error : " + err;
+                    alert(errorMessage);
+                }
+            });
+
+            // when you joined to the room
+            lutegConnector.on('joined', function(err, roomName, clients){
+                if (err){
+                    if (err === 'DISCONNECTED'){
+                        alert('You are disconnected from server. Please connect to server at first.');
+                    }
+                    else if (err === 'ROOM_NAME_MUST_BE_SET'){
+                        alert('Please enter the room name.');
+                    }
+                    else{
+                        alert("join - error : " + err);
+                    }
+                }
+                else{
+                    var clientsSelect = document.querySelector('#clients');
+                    clientsSelect.options.length = 0;
+                    for(var i = 0; i < clients.length; i++){
+                        var client = clients[i];
+                        initializeClient(client);
+                        var clientOption = createOption(client.id, client.id + " " + JSON.stringify(client.customProperties));
+                        clientsSelect.appendChild(clientOption);
+                    }
+                }
+            });
+
+            // when you left from the room
+            lutegConnector.on('left', function(err, roomName){
+                if (err){
+                    if (err === 'DISCONNECTED'){
+                        alert('You are disconnected from server.');
+                    }
+                    else{
+                        alert("leave - error : " + err);
+                    }
+                }
+                else{
+                    var clientsSelect = document.querySelector('#clients');
+                    clientsSelect.options.length = 0;
+                }
+            });
+
+            // when someone joined to the room
+            lutegConnector.on('clientJoined', function(roomName, client){
+                initializeClient(client);
+                var clientsSelect = document.querySelector('#clients');
+                var clientOption = createOption(client.id, client.id + " " + (client.customProperties ? JSON.stringify(client.customProperties) : ""));
+                clientsSelect.appendChild(clientOption);
+            });
+
+            // when someone left from the room
+            lutegConnector.on('clientLeft', function(roomName, client){
+                var clientsSelect = document.querySelector('#clients');
+                removeOption(clientsSelect, client.id);
+                removeClientVideo(client.id);
+            });
+
+            // when iot data received
+            lutegConnector.on('iotDataReceived', function(data){                
+                alert("iot data received : \n" + JSON.stringify(data));
+            });
+        }
+
+        function initializeClient(client){
+
+            // when connection state is changed for client
+            lutegConnector.clients[client.id].on('connectionStateChanged', function(state){
+                var message = "";
+                switch (state) {
+                    // new : the ICE agent is gathering addresses or waiting for remote candidates (or both).
+                    case 'new':
+                        break;
+                    // checking : the ICE agent has remote candidates, on at least one component, and is check them, though it has not found a connection yet.
+                    // At the same time, it may still be gathering candidates.
+                    case 'checking':
+                        message = 'Connecting to client...';
+                        break;
+                    // connected : the ICE agent has found a usable connection for each component, but is still testing more remote candidates for a better connection.
+                    // At the same time, it may still be gathering candidates.
+                    case 'connected':
+                    // completed : the ICE agent has found a usable connection for each component, and is no more testing remote candidates.
+                    case 'completed':
+                        message = 'Connection established.';
+                        break;
+                    // disconnected : liveness check has failed for at least one component. This may be a transient state, e. g. on a flaky network, that can recover by itself.
+                    case 'disconnected':
+                        message = 'Disconnected.';
+                        removeClientVideo(client.id);
+                        break;
+                    // failed : the ICE agent has checked all the remote candidates and didn't find a match for at least one component.
+                    // Connections may have been found for some components.
+                    case 'failed':
+                        break;
+                    // closed : the ICE agent has shutdown and is not answering to requests.
+                    case 'closed':
+                        message = 'Connection closed.';
+                        removeClientVideo(client.id);
+                        break;
+                }
+            });
+
+            // when stream is added for client
+            lutegConnector.clients[client.id].on('streamAdded', function(stream){
+                var remoteVideos = document.querySelector('#remoteVideos');
+                var remoteVideoElement = document.createElement('video');
+                remoteVideoElement.id = getDomId(client.id);
+                lutegConnector.attachMediaStream(remoteVideoElement, stream);
+                remoteVideos.appendChild(remoteVideoElement);
+                remoteVideoElement.play();
+            });
+
+            // when stream is removed for client
+            lutegConnector.clients[client.id].on('streamRemoved', function(){
+                removeClientVideo(client.id);
+            });
+
+            // when calling to client
+            lutegConnector.clients[client.id].on('calling', function(options){
+                var audio = options.audio || false;
+                var video = options.video || false;
+            });
+
+            // when call is succeed between client
+            lutegConnector.clients[client.id].on('callSucceed', function(options){
+                var audio = options.audio || false;
+                var video = options.video || false;
+            });
+
+            // when call is failed between client
+            lutegConnector.clients[client.id].on('callFailed', function(err, options){
+                var audio = options.audio || false;
+                var video = options.video || false;
+                if (err === 'DISCONNECTED'){
+                    alert("You are disconnected from the server. Please connect to server at first");
+                }
+                else if (err === 'CALL_EXISTS'){
+                    alert("You have already call with this client");
+                }
+                else if (err === 'LOCAL_MEDIA_NOT_EXISTS'){
+                    alert("You don't have local media. Please start your local media at first.");
+                }
+                else if (err === 'AUDIO_OR_VIDEO_OPTION_MUST_BE_SET'){
+                    alert("Please select audio or video option for this client.");
+                }
+                else{
+                    alert("call - error : " + err);
+                }
+            });
+
+            // when call request is received from client
+            lutegConnector.clients[client.id].on('callRequestReceived', function(options, acceptFunction, declineFunction){
+                var audio = options.audio || false;
+                var video = options.video || false;
+                var confirmationMessage = options.confirmationMessage || "";
+                // automatic accepted
+                var accepted = true;
+                // show confirmation to user
+                if (confirmationMessage.length > 0){
+                    accepted = confirm(confirmationMessage);
+                }
+                // if accepted
+                if (accepted == true) {
+                    // start local media
+                    if (lutegConnector.hasLocalMedia()){
+                        // call accept function
+                        acceptFunction();
+                    }
+                    else{
+                        lutegConnector.startLocalMedia(
+                            {
+                                audio: audio,
+                                video: video
+                            },
+                            // if local media is started
+                            function(stream){
+                                // show local media
+                                var localVideoElement = document.querySelector('#localVideo');
+                                // mute local video for echo cancelation
+                                localVideoElement.muted = true;
+                                lutegConnector.attachMediaStream(localVideoElement, stream);
+                                // call accept function
+                                acceptFunction();
+                            },
+                            // if local could not be started
+                            function(err){
+                                alert("localMediaStart - error : " + err);
+                                // call decline function
+                                declineFunction();
+                            }
+                        );
+                    }
+                } else {
+                    declineFunction();
+                }
+            });
+
+            // when call request is accepted by client
+            lutegConnector.clients[client.id].on('callRequestAccepted', function(options){
+                var audio = options.audio || false;
+                var video = options.video || false;
+                console.log('Call is accepted by ' + client.id + '. Audio: ' + audio + ' - Video: ' + video);
+            });
+
+            // when call request is declined by client
+            lutegConnector.clients[client.id].on('callRequestDeclined', function(options){
+                var audio = options.audio || false;
+                var video = options.video || false;
+                console.log('Call is declined by ' + client.id + '. Audio: ' + audio + ' - Video: ' + video);
+            });
+
+            // when call is hungup by client
+            lutegConnector.clients[client.id].on('callHungup', function(){
+                console.log('Hangup from ' + client.id + '.');
+            });
+
+            // when data channel request is received from client
+            lutegConnector.clients[client.id].on('dataChannelRequestReceived', function(options, acceptFunction, declineFunction){
+                var channelName = options.name;
+                var confirmationMessage = options.confirmationMessage || "";
+                // automatic accepted
+                var accepted = true;
+                // show confirmation to user
+                if (confirmationMessage.length > 0){
+                    accepted = confirm(confirmationMessage);
+                }
+                // if accepted
+                if (accepted == true) {
+                    // call accept function
+                    acceptFunction();
+                } else {
+                    // call decline function
+                    declineFunction();
+                }
+            });
+
+            // when data channel request is accepted by client
+            lutegConnector.clients[client.id].on('dataChannelRequestAccepted', function(options){
+                var channelName = options.name;
+                console.log('Data channel is accepted by ' + client.id + '. Channel: ' + channelName);
+            });
+
+            // when data channel request is declined by client
+            lutegConnector.clients[client.id].on('dataChannelRequestDeclined', function(options){
+                var channelName = options.name;
+                console.log('Data channel is declined by ' + client.id + '. Channel: ' + channelName);
+            });
+
+            // when data channel is opened between client
+            lutegConnector.clients[client.id].on('dataChannelOpened', function(err, channelName){
+                if (err){
+                    if (err === 'DISCONNECTED'){
+                        alert("You are disconnected from the server. Please, connect to server at first.")
+                    }
+                    else if (err === 'CHANNEL_NAME_MUST_BE_SET'){
+                        alert("Please enter the channel name")
+                    }
+                    else if (err === 'RESERVED_CHANNEL'){
+                        alert("Sorry, but" + channelName + " is reserved")
+                    }
+                    else if (err === 'CHANNEL_ALREADY_EXISTS'){
+                        alert(channelName + ' channel is already exists')
+                    }
+                    else{
+                        alert("dataChannelOpen - error : " + err);
+                    }
+                }
+                else{
+                    var channelsSelect = document.querySelector('#dataChannels');
+                    var channelOption = createOption(channelName, channelName);
+                    channelsSelect.appendChild(channelOption);
+                }
+            });
+
+            // when data channel is closed between client
+            lutegConnector.clients[client.id].on('dataChannelClosed', function(err, channelName){
+                if (err){
+                    if (err === 'DISCONNECTED'){
+                        alert("You are disconnected from the server. Please, connect to server at first.")
+                    }
+                    else if (err === 'CHANNEL_NAME_MUST_BE_SET'){
+                        alert("Please select the channel")
+                    }
+                    else if (err === 'RESERVED_CHANNEL'){
+                        alert("Sorry, but" + channelName + " is reserved")
+                    }
+                    else if (err === 'CHANNEL_NOT_EXISTS'){
+                        alert(channelName + ' channel is not exists')
+                    }
+                    else{
+                        alert("dataChannelClosed - error : " + err);
+                    }
+                }
+                else{
+                    var channelsSelect = document.querySelector('#dataChannels');
+                    removeOption(channelsSelect, channelName);
+                }
+            });
+
+            // when data channel error is occured between client
+            lutegConnector.clients[client.id].on('dataChannelError', function(err, channelName){
+                alert("dataChannelClosed - Channel: " + channelName + + " - Error: " + err);
+            });
+
+            // when message is sent to client
+            lutegConnector.clients[client.id].on('messageSent', function(err, channelName, message){
+                if (err){
+                    if (err === 'DISCONNECTED'){
+                        alert("You are disconnected from the server. Please, connect to server at first.")
+                    }
+                    else if (err === 'CHANNEL_NAME_MUST_BE_SET'){
+                        alert('Please select the channel')
+                    }
+                    else if (err === 'RESERVED_CHANNEL'){
+                        alert("Sorry, but" + channelName + " is reserved")
+                    }
+                    else if (err === 'MESSAGE_MUST_BE_SET'){
+                        alert("Please enter the message")
+                    }
+                    else if (err === 'CHANNEL_NOT_EXISTS'){
+                        alert(channelName + ' channel is not exists')
+                    }
+                    else{
+                        alert("messageSend - error : " + err);
+                    }
+                }
+            });
+
+            // when message is received from client
+            lutegConnector.clients[client.id].on('messageReceived', function(channelName, message){
+                var message = message + '<br/>(Client : ' + client.id + ' - Channel : ' + channelName + ')';
+                var receivedDataChannelMessage = document.querySelector('#receivedDataChannelMessage');
+                receivedDataChannelMessage.innerHTML = message;
+            });
+
+            // when file transfer request is received from client
+            lutegConnector.clients[client.id].on('fileTransferRequestReceived', function(options, acceptFunction, declineFunction){
+                var fileInfo = options.file;
+                var confirmationMessage = options.confirmationMessage || "";
+                // automatic accepted
+                var accepted = true;
+                // show confirmation to user
+                if (confirmationMessage.length > 0){
+                    accepted = confirm(confirmationMessage);
+                }
+                // if accepted
+                if (accepted == true) {
+                    // call accept function
+                    acceptFunction();
+                } else {
+                    // call decline function
+                    declineFunction();
+                }
+            });
+
+            // when file transfer request is accepted by client
+            lutegConnector.clients[client.id].on('fileTransferRequestAccepted', function(options){
+                var fileInfo = options.file;
+                console.log('File transfer is accepted by ' + client.id + '. File: ' + JSON.stringify(fileInfo));
+            });
+
+            // when file transfer request is declined by client
+            lutegConnector.clients[client.id].on('fileTransferRequestDeclined', function(options){
+                var fileInfo = options.file;
+                console.log('File transfer is declined by ' + client.id + '. File: ' + JSON.stringify(fileInfo));
+            });
+
+            // when file data is sent to client
+            lutegConnector.clients[client.id].on('fileDataSent', function(fileInfo, sentBytes){
+                console.log(
+                        'Transfering file to ' + client.id + '.' +
+                        'File name : ' + fileInfo.name + ' - ' +
+                        'Process : ' + (sentBytes * 100 / fileInfo.size)
+                );
+
+            });
+
+            // when file data is received from client
+            lutegConnector.clients[client.id].on('fileDataReceived', function(fileInfo, receivedBytes){
+                console.log(
+                        'Transfering file from ' + client.id + '.' +
+                        'File name : ' + fileInfo.name + ' - ' +
+                        'Process : ' + (receivedBytes * 100 / fileInfo.size)
+                );
+
+            });
+
+            // when file is received from client
+            lutegConnector.clients[client.id].on('fileReceived', function(err, fileInfo, downloadUrl){
+                if (err){
+                    alert("fileReceive - error : " + err);
+                }
+                else{
+                    var receivedFileLink = document.createElement('a');
+                    receivedFileLink.href = downloadUrl;
+                    receivedFileLink.download = fileInfo.name;
+                    var text = '\'' + fileInfo.name + '\' (' + fileInfo.size + ' bytes)';
+                    receivedFileLink.appendChild(document.createTextNode(text));
+                    var breakLine = document.createElement('br');
+                    var receivedFilesContainer = document.querySelector('#fileTransferReceived');
+                    receivedFilesContainer.appendChild(receivedFileLink);
+                    receivedFilesContainer.appendChild(breakLine);
+                    console.log(
+                        'File is transfered from ' + client.id + '.' +
+                        'File name : ' + fileInfo.name
+                    );
+                }
+            });
+
+            // when file is sent to the client
+            lutegConnector.clients[client.id].on('fileSent', function(err, fileInfo){
+                if (err){
+                    if (err === 'DISCONNECTED'){
+                        alert("You are disconnected from the server. Please, connect to server at first.")
+                    }
+                    else if (err === 'FILE_MUST_BE_SET'){
+                        alert("Please select the file")
+                    }
+                    else{
+                        alert("fileSend - error : " + err);
+                    }
+                }
+                else{
+                    console.log(
+                        'File is sent to ' + client.id + '.' +
+                        'File name : ' + fileInfo.name
+                    );
+                }
+            });
+
+        };
+
+        // remove client video from remote videos
+        function removeClientVideo(clientId){
+            var remoteVideos = document.querySelector('#remoteVideos');
+            var remoteVideo = document.querySelector('#' + getDomId(clientId));
+            if (remoteVideo) {
+                remoteVideos.removeChild(remoteVideo);
+            }
+        };
+
+        // get dom id for client
+        function getDomId(clientId) {
+            var domId = 'client_' + clientId;
+            return domId;
+        };
+
+        // create option for select element
+        function createOption(value, text){
+            var option = document.createElement('option');
+            option.value = value;
+            option.text = text;
+            return option;
+        };
+
+        // remove option from select element
+        function removeOption(select, value){
+            for (var i = 0; i < select.length; i++){
+                if (select.options[i].value === value)
+                    select.remove(i);
+                    break;
+            }
+        };
+
+    </script>
+
+</body>
+</html>

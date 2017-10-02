@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="500dp"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/views"
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:orientation="horizontal">
+
+                <org.webrtc.SurfaceViewRenderer
+                    android:id="@+id/local_video"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"/>
+
+            </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="400dp">
+
+                <Button
+                    android:id="@+id/connect"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+
+                    android:text="Connect" />
+
+                <Button
+                    android:id="@+id/disconnect"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_toEndOf="@+id/connect"
+                    android:layout_alignTop="@id/connect"
+                    android:text="Disconnect" />
+
+                <Button
+                    android:id="@+id/btn2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_below="@+id/connect"
+                    android:layout_toStartOf="@+id/disconnect"
+                    android:text="Start Local Media" />
+                <Button
+                    android:id="@+id/btn1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Stop local media"
+                    android:layout_toEndOf="@+id/btn2"
+                    android:layout_alignBottom="@+id/btn2" />
+
+                <Button
+                    android:id="@+id/btn3"
+                    android:layout_alignParentStart="true"
+                    android:layout_below="@+id/btn2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Call"
+                    android:layout_toStartOf="@+id/btn1" />
+
+                <Button
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/toggleSound"
+                    android:text="toggle Sound"
+                    android:layout_below="@+id/btn1"
+                    android:layout_toEndOf="@+id/btn3" />
+
+                <Button
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/toggleVideo"
+                    android:text="toggle Video"
+                    android:layout_below="@+id/btn3"
+                    android:layout_alignParentStart="true" />
+                <Button
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/switchCamera"
+                    android:text="switch Camera"
+                    android:layout_below="@+id/toggleSound"
+                    android:layout_toEndOf="@+id/btn3" />
+
+                <Button
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/start_data"
+                    android:text="Open Data Channel"
+                    android:layout_below="@+id/toggleVideo" />
+
+                <Button
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/send_data"
+                    android:text="Send Data"
+                    android:layout_below="@+id/toggleVideo"
+                    android:layout_toEndOf="@+id/btn3"/>
+
+
+                <ListView
+                    android:id="@+id/clients"
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginBottom="69dp"></ListView>
+
+                <TextView
+                    android:id="@+id/clients_empty"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/btn2"
+                    android:layout_alignParentStart="true"></TextView>
+
+                <TextView
+                    android:id="@+id/room_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_above="@+id/clients"
+                    android:layout_alignParentStart="true"></TextView>
+            </RelativeLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+
+</LinearLayout>

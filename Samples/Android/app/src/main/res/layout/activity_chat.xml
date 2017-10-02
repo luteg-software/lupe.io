@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.luteg.connector.demo.activity.ChatActivity">
+<android.support.v7.widget.RecyclerView
+    android:id="@+id/listView"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+</android.support.v7.widget.RecyclerView>
+    <EditText
+        android:id="@+id/message_text"
+        android:layout_alignParentBottom="true"
+        android:layout_marginRight="80dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <Button
+        android:id="@+id/send_data"
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:text="Send"/>
+</RelativeLayout>

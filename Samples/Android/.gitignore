@@ -1,0 +1,14 @@
+/build
+/Android.iml
+local.properties
+/LutegConnectorDemo.iml
+.DS_Store
+.gradle/
+.idea/
+Android.iml
+LutegConnectorDemo.iml
+app/.DS_Store
+gradle.properties
+gradle/
+gradlew
+gradlew.bat

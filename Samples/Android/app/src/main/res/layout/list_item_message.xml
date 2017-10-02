@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="horizontal"
+              android:layout_width="match_parent"
+              android:layout_height="40dp"
+              android:weightSum="2"
+              android:paddingTop="10dp">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/local_message"
+        android:layout_marginLeft="10dp"
+        android:layout_weight="1"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/remote_message"
+        android:gravity="right"
+        android:layout_marginRight="10dp"
+        android:layout_weight="1"/>
+</LinearLayout>

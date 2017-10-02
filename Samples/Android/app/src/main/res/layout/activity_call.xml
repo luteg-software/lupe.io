@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.luteg.connector.demo.activity.CallActivity">
+
+    <org.webrtc.SurfaceViewRenderer
+        android:id="@+id/local_video"
+        android:layout_width="150dp"
+        android:layout_height="200dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="20dp"/>
+    <org.webrtc.SurfaceViewRenderer
+        android:id="@+id/remote_video"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+    <Button
+        android:id="@+id/hangUpButton"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:layout_marginBottom="30dp"
+        android:layout_marginLeft="30dp"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/hangup"/>
+    <ImageButton
+        android:id="@+id/switchCameraButton"
+        android:layout_width="50dp"
+        android:layout_height="75dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="20dp"
+        android:layout_alignParentRight="true"
+        android:scaleType="centerInside"
+        android:background="#0000"
+        android:src="@drawable/camera_flip"/>
+    <Button
+        android:id="@+id/muteAudio"
+        android:layout_width="100dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:text="Mute Audio"
+        android:background="#0000"
+        android:textColor="#FFF"/>
+    <Button
+        android:id="@+id/muteVideo"
+        android:layout_width="100dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_toRightOf="@id/muteAudio"
+        android:text="Mute Video"
+        android:background="#0000"
+        android:textColor="#FFF"/>
+</RelativeLayout>

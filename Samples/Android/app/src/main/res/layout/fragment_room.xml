@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFF">
+    <Button android:layout_height="30dp"
+        android:layout_width="match_parent"
+        android:id="@+id/btn1"
+        android:text="1"/>
+    <Button android:layout_height="30dp"
+        android:layout_width="match_parent"
+        android:id="@+id/btn2"
+        android:text="2"/>
+    <Button android:layout_height="30dp"
+        android:layout_width="match_parent"
+        android:id="@+id/btn3"
+        android:text="3"/>
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:id="@+id/clients"></ListView>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/clients_empty"></TextView>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/room_name"></TextView>
+</LinearLayout>
