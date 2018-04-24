@@ -58,4 +58,3 @@ MIT
 - GitHub [@fatihyasar](https://github.com/fatihyasar) &nbsp;Fatih YAŞAR;&nbsp;
 - GitHub [@muratonnet](https://github.com/muratonnet) &nbsp;Murat ARAS;&nbsp;
 - Github [@utque](https://github.com/utque) &nbsp;Utku BAYIK;&nbsp;
-1
